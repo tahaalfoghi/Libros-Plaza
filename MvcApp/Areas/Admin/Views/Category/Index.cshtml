@@ -1,0 +1,27 @@
+﻿@model List<Category>
+
+<div class="container text-dark">
+    <div class="row pt-4 pd-3">
+        <div class="col-6">
+            <h2 class="text-dark">Category List</h2>
+        </div>
+        <div class="col-6 text-end text-dark" >
+            <a asp-controller="Category" asp-action="Create" class="btn btn-primary text-dark">
+                <i class="bi bi-plus-square-fill"></i> Create New Category
+            </a>
+        </div>
+    </div>
+    <table class="table table-hover" id="categoryTable">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">DisplayOrder</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/js/Category.js"></script>
+}

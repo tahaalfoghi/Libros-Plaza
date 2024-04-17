@@ -1,0 +1,27 @@
+﻿@model Category
+
+<form method="post">
+    <fieldset>
+        <legend>Update Category</legend>
+        <div class="row p-1">
+            <label asp-for="Name" class="col-sm-2 col-form-label">Name</label>
+            <input asp-for="Name" type="text" class="form-control" id="Name" placeholder="Category Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="row p-1">
+            <label asp-for="DisplayOrder" class="form-label mt-4">Display Order</label>
+            <input asp-for="DisplayOrder" type="number" class="form-control pd-3" id="DisplayOrder" placeholder="Order">
+            <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary m-3">Update</button>
+        <a asp-controller="Category" asp-action="Index" class="btn btn-primary">
+            Back to Categories
+        </a>
+    </fieldset>
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

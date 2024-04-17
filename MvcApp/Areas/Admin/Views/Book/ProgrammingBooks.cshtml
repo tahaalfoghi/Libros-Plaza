@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Book>
+
+<div class="row p-3">
+
+    @foreach (var book in Model)
+    {
+        <div class="col-lg-3 col-sm-6">
+            <div class="row p-2">
+                <div class="col-12 p-1">
+                    <div class="card border-0 p-3 shadow border-top border-5 rounded">
+                        <img src="@book.ImageUrl" />
+                        <div class="card-body pb-0">
+                            <div class="pl-1">
+                                <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@book.Title</p>
+                                <p class="card-title text-dark text-center">By @book.Author</p>
+                            </div>
+                            <div class="pl-1 text-center">
+                                <span class="h5 text-dark">@book.Price.ToString("c")</span>
+                            </div>
+                            <div class="pl-1 text-dark-black">
+                                <a class="btn btn-primary border-0 form-control" asp-controller="Home" asp-action="Details" asp-route-id="@book.Id">
+                                    <span class="text-dark">Details</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
