@@ -1,0 +1,115 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model List<ShoppingCart>
+
+@{
+    
+    decimal total = 0;
+    int count = Model.Where(x => x.UserId.Equals(UserManager.GetUserId(User))).Count();
+    decimal totalPerUnit = 0;
+}
+
+<div class="px-4 px-lg-0">
+    <div class="pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+
+                    <!-- Shopping cart table -->
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="border-0 bg-light">
+                                        <div class="p-2 px-3 text-uppercase">Product</div>
+                                    </th>
+                                    <th scope="col" class="border-0 bg-light">
+                                        <div class="py-2 text-uppercase">Price</div>
+                                    </th>
+                                    <th scope="col" class="border-0 bg-light">
+                                        <div class="py-2 text-uppercase">Quantity</div>
+                                    </th>
+                                    <th scope="col" class="border-0 bg-light">
+                                        <div class="py-2 text-uppercase">Total per Unit</div>
+                                    </th>
+                                    <th scope="col" class="border-0 bg-light">
+                                        <div class="py-2 text-uppercase">Remove</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            @if(count > 0)
+                            {
+                                foreach(var item in Model)
+                                {
+                                    if (item.UserId.Equals(UserManager.GetUserId(User)))
+                                    {
+
+                                        item.TotalPricePerUnit = item.Book.Price * item.Quantity;
+                                        total += item.TotalPricePerUnit;
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row" class="border-0">
+                                                    <div class="p-2">
+                                                        <img src="@item.Book.ImageUrl" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                                        <div class="ml-3 d-inline-block align-middle">
+                                                            <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle">@item.Book.Title</a></h5>
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                <td class="border-0 align-middle"><strong>@item.Book.Price.ToString("C")</strong></td>
+                                                <td class="border-0 align-middle"><strong>@item.Quantity</strong></td>
+                                                <td class="border-0 align-middle"><strong>@totalPerUnit.ToString("C")</strong></td>
+                                                <td class="border-0 align-middle"><a class="btn btn-danger" asp-controller="Cart" asp-action="Delete" asp-route-cartId="@item.Id" class="text-dark"><i class="bi bi-trash"></i></a></td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row py-5 p-4 bg-white rounded shadow-sm">
+               
+                <div class="col-lg-6 w-100">
+                    <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
+                    <div class="p-4">
+                        <ul class="list-unstyled mb-4">
+                            <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Order Subtotal </strong><strong>@total.ToString("C")</strong></li>
+                            <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Shipping and handling</strong><strong>$0.00</strong></li>
+                            <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tax</strong><strong>$0.00</strong></li>
+                            <li class="d-flex justify-content-between py-3 border-bottom">
+                                <strong class="text-muted">Total</strong>
+                                <h5 class="font-weight-bold">@total.ToString("C")</h5>
+                            </li>
+                        </ul>
+                        @if (count > 0)
+                        {
+                            <a asp-controller="Order" asp-action="Checkout" class="btn btn-primary rounded-pill py-2 btn-block">Checkout</a>
+
+                        }
+                        else
+                        {
+                            <button class="btn btn-primary rounded-pill py-2 btn-block" disabled>Checkout</button>
+
+                        }
+                        <a asp-controller="Home" asp-action="Index"  class="btn btn-primary rounded-pill py-2 btn-block">Back To Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    #bb:hover {
+        background-color: lightblue;
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

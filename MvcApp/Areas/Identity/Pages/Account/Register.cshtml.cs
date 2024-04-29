@@ -104,9 +104,9 @@ namespace MvcApp.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-            public string? Role { get; set; }
+            public string Role { get; set; }
             [Required]
-            public string? Name { get; set; }
+            public string Name { get; set; }
             [ValidateNever]
             public IEnumerable<SelectListItem> RoleList { get; set; }
 

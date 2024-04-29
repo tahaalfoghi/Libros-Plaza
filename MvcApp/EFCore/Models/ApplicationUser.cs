@@ -7,5 +7,14 @@ namespace MvcApp.EFCore.Models
     {
         [Required]
         public string? Name { get; set; }
+        [MaxLength(255)]
+
+        public string? Address { get; set; }
+        [MaxLength(255)]
+
+        public string? PostalCode { get; set; }
+        [MaxLength(255)]
+        public string? City { get; set; }
+
     }
 }

@@ -1,59 +1,46 @@
 ﻿@model Book
 
-<section class="py-5">
-    <div class="container">
-        <div class="row gx-5">
-            <aside class="col-lg-6">
-                <div class="border rounded-4 mb-3 d-flex justify-content-center">
-                    <img style="width: 70%;" class="rounded-4 fit" src="@Model.ImageUrl" />
-                </div>
-            </aside>
-            <main class="col-lg-6">
-                <div class="ps-lg-3">
-                    <div class="d-flex flex-row my-3">
-                      <h1 class="text-dark">@Model.Title</h1>
+    <section class="py-5">
+            <input asp-for="Id" hidden/>
+        <div class="container">
+            <div class="row gx-5">
+                <aside class="col-lg-6">
+                    <div class="border rounded-4 mb-3 d-flex justify-content-center">
+                        <img style="width: 70%;" class="rounded-4 fit" src="@Model.ImageUrl" />
                     </div>
-
-                    <div class="mb-3 ">
-                        <span class="h5 text-dark">@Model.Price.ToString("c")</span>
-                    </div>
-
-                    <p class="text-dark">@Model.Description </p>
-
-                    <div class="row text-dark">
-                        <dt class="col-3">Category:</dt>
-                        <dd class="col-9">@Model.Category.Name</dd>
-
-                        <dt class="col-3">Auhtor:</dt>
-                        <dd class="col-9">@Model.Author</dd>
-
-                        <dt class="col-3">ISBN:</dt>
-                        <dd class="col-9">@Model.ISBN</dd>
-                    </div>
-
-                    <hr />
-                    <div class="row mb-4">
-                        <div class="col-md-4 col-6 mb-3">
-                            <label class="mb-2 d-block text-dark">Quantity</label>
-                            <div class="input-group mb-3" style="width: 170px;">
-                                <button class="btn btn-white border border-secondary px-3" type="button" id="plus-btn" data-mdb-ripple-color="dark" data-action="increase-picker-quantity">
-                                    <i class="bi bi-dash text-dark"></i>
-                                </button>
-                                <input id="quantity-input" type="number" min="1" max="10" class="form-control text-center border border-secondary" placeholder="0" aria-label="Example text with button addon" aria-describedby="button-addon1" />
-                                <button class="btn btn-white border border-secondary px-3" type="button" id="minus-btn" data-mdb-ripple-color="dark">
-                                    <i class="bi bi-plus-lg text-dark"></i>
-                                </button>
-                            </div>
+                </aside>
+                <main class="col-lg-6">
+                    <div class="ps-lg-3">
+                        <div class="d-flex flex-row my-3">
+                            <h1 class="text-dark">@Model.Title</h1>
                         </div>
+
+                        <div class="mb-3 ">
+                        <span class="h5 text-dark"><strong>Price:</strong></span>
+                            <span class="h5 text-dark">@Model.Price.ToString("c")</span>
+                        </div>
+
+                    <p class="text-dark"><strong>Description:</strong> </p>
+                        <p class="text-dark">@Model.Description</p>
+                        <div class="row text-dark">
+                        <dt class="col-3"><strong>Category:</strong></dt>
+                            <dd class="col-9">@Model.Category.Name</dd>
+
+                        <dt class="col-3"><strong>Auhtor:</strong></dt>
+                            <dd class="col-9">@Model.Author</dd>
+
+                        <dt class="col-3"><strong>ISBN:</strong></dt>
+                            <dd class="col-9">@Model.ISBN</dd>
+                        </div>
+                        <hr />
+                        <button type="submit"  class="btn btn-warning " id="dHover"> <i class="bi bi-bag"></i>Buy now </button>
+                        <a asp-controller="Cart"asp-action="AddToCart" asp-route-bookId="@Model.Id" class="btn btn-primary shadow-0 " id="dHover"> <i class="bi bi-cart-plus"></i> Add to cart </a>
+                        <a id="dHover" asp-controller="Home" asp-action="Index" class="btn btn-primary border border-secondary py-2 icon-hover px-3"><i class="bi bi-house"></i> Back to Home</a>
                     </div>
-                    <a href="#" class="btn btn-warning text-dark" id="dHover"> <i class="bi bi-bag"></i>Buy now </a>
-                    <a href="#" class="btn btn-primary shadow-0 text-dark" id="dHover"> <i class="bi bi-cart-plus"></i> Add to cart </a>
-                    <a id="dHover" asp-controller="Home" asp-action="Index" class="btn btn-primary border border-secondary py-2 icon-hover px-3 text-dark"><i class="bi bi-house"></i> Back to Home</a>
-                </div>
-            </main>
+                </main>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 <style>
     #dHover:hover {
         background-color: lightskyblue;

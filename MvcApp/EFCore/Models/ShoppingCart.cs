@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MvcApp.EFCore.Models
@@ -12,15 +13,19 @@ namespace MvcApp.EFCore.Models
         [Key]
         public int Id { get; set; }
         public string UserId { get; set; }
+        
         [ForeignKey("UserId")]
+        [ValidateNever]
         public ApplicationUser User { get; set; }
 
         public int BookId { get; set; }
+       
         [ForeignKey("BookId")]
+        [ValidateNever]
         public Book Book { get; set; }
         [Range(1,100,ErrorMessage ="Please enter a value from 1 between 100")]
         public int Quantity { get; set; }
-        [NotMapped]
-        public decimal Price { get; set; }  
+        [Required]
+        public decimal TotalPricePerUnit { get; set; }  
     }
 }

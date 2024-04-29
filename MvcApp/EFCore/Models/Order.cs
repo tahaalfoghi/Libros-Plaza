@@ -21,8 +21,20 @@ namespace MvcApp.EFCore.Models
         public string? PaymentStatus { get; set; }
         public DateTime PaymentDate { get; set; }
         public int? TransactionId { get; set; }
+        [MaxLength(255)]
+
         public string? City { get; set; }
+        [MaxLength(255)]
+
         public string? State { get; set; }
+        [MaxLength(255)]
+
         public string? PhoneNumber { get; set; }
+        [MaxLength(255)]
+
+        public string? PostalCode { get; set;}
+        [MaxLength(255)]
+        public string? Name {  get; set; }
+
     }
 }

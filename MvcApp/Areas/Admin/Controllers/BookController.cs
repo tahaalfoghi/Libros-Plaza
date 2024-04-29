@@ -41,7 +41,7 @@ namespace MvcApp.Areas.Admin.Controllers
                 CategoryList = list,
                 book= new Book()
             };
-            if(id == null || id == 0)
+            if(id is null || id == 0)
             {
                 // create
                 return View(BookVM);
@@ -119,6 +119,12 @@ namespace MvcApp.Areas.Admin.Controllers
             records = records.Where(x => x.Category.Name.Equals("Manga"));
             return View(records);
         }
+        public async Task<IActionResult> AIBooks()
+        {
+            var records = await _uow.BookRepository.GetAllAsync(includes: "Category");
+            records = records.Where(x => x.Category.Name.Equals("Artificial Intelligent"));
+            return View(records);
+        }
 
         #region APICALL
         [HttpGet]
@@ -131,6 +137,7 @@ namespace MvcApp.Areas.Admin.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int id, CancellationToken token)
         {
+            
             if (!ModelState.IsValid || id <= 0)
                 return Json(new { success = false, message = "error while deleting" });
 

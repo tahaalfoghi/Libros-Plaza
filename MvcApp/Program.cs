@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,12 @@ builder.Services.AddScoped(typeof(OrderDetailsRepository));
 builder.Services.AddScoped(typeof(ShoppingCartRepository));
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
+builder.Services.AddSession(op =>
+{
+    op.IdleTimeout = TimeSpan.FromMinutes(10);
+    op.Cookie.HttpOnly = true;
+    op.Cookie.IsEssential = true;
+});
 var app = builder.Build();
 
 
@@ -51,7 +58,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");

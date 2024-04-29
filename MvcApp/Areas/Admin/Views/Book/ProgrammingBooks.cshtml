@@ -18,8 +18,8 @@
                                 <span class="h5 text-dark">@book.Price.ToString("c")</span>
                             </div>
                             <div class="pl-1 text-dark-black">
-                                <a class="btn btn-primary border-0 form-control" asp-controller="Home" asp-action="Details" asp-route-id="@book.Id">
-                                    <span class="text-dark">Details</span>
+                                <a class="btn btn-primary border-0 form-control" id="dHover" asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@book.Id">
+                                    <span >Details</span>
                                 </a>
                             </div>
                         </div>
@@ -29,3 +29,8 @@
         </div>
     }
 </div>
+<style>
+    #dHover:hover {
+        background-color: lightskyblue;
+    }
+</style>
